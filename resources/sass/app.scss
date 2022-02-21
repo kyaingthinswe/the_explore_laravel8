@@ -1,0 +1,39 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Padauk:wght@400;700&display=swap');
+
+// Variables
+//@import 'variables';
+$primary :#096a71;
+$border-radius : 1rem;
+$border-radius-lg: 2rem;
+$border-padding-x-lg: 2rem;
+
+// Typography
+$font-family-sans-serif: 'Montserrat', 'Padauk',sans-serif;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
+@import "~venobox/src/venobox.css";
+
+.user-img{
+    width: 40px;
+    height: 40px;
+}
+
+.cover-img{
+    height: 350px;
+    object-fit: cover;
+}
+.h-400{
+    height: 350px;
+}
+.post{
+    border-bottom: 1px solid $border-color;
+    padding-bottom: 1.5rem;
+}
+.post:last-child{
+    border-bottom: none;
+}
