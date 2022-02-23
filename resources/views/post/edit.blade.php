@@ -12,10 +12,11 @@
                         {{date('D/M/Y')}}
                     </p>
                 </div>
-                <form action="{{route('post.store')}}" method="post" enctype="multipart/form-data">
+                <form action="{{route('post.update',$post->id)}}" method="post" enctype="multipart/form-data">
                     @csrf
+                    @method('put')
                     <div class="form-floating mb-4">
-                        <input type="text" name="title" value="{{old('title')}}" id="title" class="form-control @error('title') is-invalid @enderror" >
+                        <input type="text" name="title" value="{{$post->title}}" id="title" class="form-control @error('title') is-invalid @enderror" >
                         <label for="title">Post Title</label>
                         @error('title')
                         <p class="text-danger fw-bold small">{{$message}}</p>
@@ -23,15 +24,15 @@
                     </div>
 
                     <div class="mb-4">
-                        <input type="file" name="cover" value="{{old('cover')}}" class="d-none" id="cover">
-                        <img src="{{asset('sample-cover.jpg')}}" class=" cover-img w-100 rounded" id="cover-preview" alt="">
+                        <input type="file" name="cover"  class="d-none" id="cover">
+                        <img src="{{asset('storage/cover/'.$post->cover)}}" class=" cover-img w-100 rounded" id="cover-preview" alt="">
                         @error('cover')
                         <p class="text-danger fw-bold small">{{$message}}</p>
                         @enderror
                     </div>
 
                     <div class="form-floating mb-4">
-                        <textarea class="form-control @error('description') is-invalid @enderror" name="description"  id="description" style="height: 400px">{{old('description')}}</textarea>
+                        <textarea class="form-control @error('description') is-invalid @enderror" name="description"  id="description" style="height: 400px">{{$post->description}}</textarea>
                         <label for="description">Share Your Review</label>
                         @error('description')
                         <p class="text-danger fw-bold small">{{$message}}</p>
@@ -41,7 +42,7 @@
                     <div class="text-center mb-4">
                         <button class="btn btn-lg btn-primary ">
                             <i class="fas fa-upload fa-fw"></i>
-                            Create Post
+                            Update Post
                         </button>
                     </div>
                 </form>
@@ -49,7 +50,7 @@
         </div>
     </div>
 
-    @stop
+@stop
 
 @push('script')
     <script>

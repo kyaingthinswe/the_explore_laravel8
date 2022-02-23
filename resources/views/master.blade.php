@@ -12,9 +12,9 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white position-fixed top-0 w-100 shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-light bg-white position-fixed top-0 w-100 shadow-sm " style="z-index: 5">
     <div class="container ">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{{route('index')}}">
             <img src="{{asset('images/logo.png')}}" height="50" alt="">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

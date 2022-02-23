@@ -4,7 +4,8 @@
 // Variables
 //@import 'variables';
 $primary :#096a71;
-$border-radius : 1rem;
+$border-radius : 1.5rem;
+$border-padding-x: 1.5rem;
 $border-radius-lg: 2rem;
 $border-padding-x-lg: 2rem;
 
@@ -36,4 +37,7 @@ $line-height-base: 1.6;
 }
 .post:last-child{
     border-bottom: none;
+}
+.post-detail{
+    white-space: pre-line;
 }

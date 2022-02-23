@@ -13,7 +13,7 @@ class UpdatePostRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class UpdatePostRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title'=> "required|unique:posts,title,".$this->route('post')->id."|min:5",
+            'description'=>'required|min:15',
+            'cover' => 'nullable|file|mimes:png,jpeg|max:5000',
         ];
     }
 }

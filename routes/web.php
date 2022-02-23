@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [\App\Http\Controllers\PageController::class,'index'])->name('index');
+Route::get('/detail/{slug}',[\App\Http\Controllers\PageController::class,'detail'])->name('post.detail');
 
 Auth::routes();
 

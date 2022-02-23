@@ -18,7 +18,7 @@
 
                 <div class="posts ">
                     @forelse($posts as $post)
-                <div class="post mb-4">
+                         <div class="post mb-4">
                     <div class="row">
                         <div class="col-lg-4 ">
                             <img src="{{asset('storage/cover/'.$post->cover)}}" class="cover-img rounded w-100" alt="">
@@ -32,15 +32,16 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="d-flex">
-                                    <img src="{{asset($post->user->profile)}}" class="user-img rounded-circle" alt="">
+                                    <img src="{{asset($post->user->profile)}}" class="user-img rounded-circle " alt="">
                                     <p class="ms-2 mb-0 small">
-                                        <i class="fas fa-user"></i>
+                                        <i class="fas fa-user text-primary"></i>
                                         {{$post->user->name}}
                                         <br>
+                                        <i class="fas fa-calendar-alt text-primary"></i>
                                         {{$post->created_at->format('D-M-Y')}}
                                     </p>
                                 </div>
-                                <a href="#" class="btn btn-outline-primary">See More</a>
+                                <a href="{{route('post.detail',$post->slug)}}" class="btn btn-outline-primary px-3 ">See More</a>
                             </div>
                         </div>
                     </div>
@@ -53,5 +54,9 @@
             </div>
     </div>
 </div>
+<div class="bg-primary p-4">
+    
+</div>
 
-    @stop
+
+@stop
