@@ -24,7 +24,7 @@
 
                     <div class="mb-4">
                         <input type="file" name="cover" value="{{old('cover')}}" class="d-none" id="cover">
-                        <img src="{{asset('sample-cover.jpg')}}" class=" cover-img w-100 rounded" id="cover-preview" alt="">
+                        <img src="{{asset('sample-cover.jpg')}}"  class=" cover-img w-100 rounded @error('cover')border border-danger is-invalid @enderror" id="cover-preview" alt="">
                         @error('cover')
                         <p class="text-danger fw-bold small">{{$message}}</p>
                         @enderror
@@ -68,4 +68,5 @@
 
         })
     </script>
+
 @endpush

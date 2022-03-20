@@ -13,7 +13,7 @@ class StoreGalleryRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class StoreGalleryRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'galleries' => 'required',
+            'galleries.*' => 'file|mimes:jpeg,png|max:5000',
+            'post_id' => 'required|exists:posts,id',
         ];
     }
 }

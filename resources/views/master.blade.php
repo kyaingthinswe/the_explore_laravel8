@@ -38,8 +38,8 @@
                             <img src="{{ asset(auth()->user()->profile) }}" class="user-img rounded-circle border border-white border-2 shadow-sm" alt="">
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Edit Profile</a></li>
-                            <li><a class="dropdown-item" href="#">Change Password</a></li>
+                            <li><a class="dropdown-item" href="{{route('edit-profile')}}">Edit Profile</a></li>
+                            <li><a class="dropdown-item" href="{{route('change-password')}}">Change Password</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a></li>
                         </ul>
@@ -57,6 +57,11 @@
 <div class="py-5"></div>
 
 @yield('content')
+
+<div class="bg-primary p-4 text-light d-flex align-items-center justify-content-center">
+    &copy; {{date('Y')}} CopyRight MMS-IT. All Right Reserved.
+</div>
+
 
 <script src="{{ asset('js/app.js') }}"></script>
 @stack('script')

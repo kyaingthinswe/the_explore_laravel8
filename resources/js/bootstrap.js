@@ -2,6 +2,8 @@ window._ = require('lodash');
 
 try {
     require('bootstrap');
+    window.VenoBox = require('venobox/dist/venobox.min');
+    // window.sr = new ScrollReveal();
 } catch (e) {}
 
 /**

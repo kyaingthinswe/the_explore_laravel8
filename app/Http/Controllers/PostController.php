@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\FileControl;
+use App\Jobs\CreateFile;
+use App\Mail\PostMail;
 use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Intervention\Image\Image;
 
 class PostController extends Controller
 {
@@ -45,24 +50,56 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
+        /**
+         * Move in Request
+        **/
 //        $request->validate([
 //            'title'=> 'required|unique:posts,title|min:5',
 //            'description'=>'required|min:15',
 //            'cover' => 'required|file|mimes:png,jpeg|max:5000',
 //        ]);
-//        return $request;
-        $dir = "public/cover/";
-        $newName = "cover_".uniqid()."_".$request->file('cover')->extension();
-        $request->file('cover')->storeAs($dir,$newName);
+
+        /**
+         * Using Classes
+        **/
+//        $dir = "public/cover/";
+//        $newName = "cover_".uniqid().".".$request->file('cover')->extension();
+//        $request->file('cover')->storeAs($dir,$newName);
+
         $post = new Post();
         $post->title = $request->title;
         $post->slug = Str::slug($request->title);
         $post->description = $request->description;
         $post->excerpt = Str::words($request->description,100);
-        $post->cover = $newName;
+        $post->cover = FileControl::FileSave('cover');
         $post->user_id = auth()->id();
         $post->save();
 
+        /**
+         * Mail Send
+         * App/Mail/PostMail
+        **/
+
+//        Mail::to('kyaingthinswe1528@gmail.com')->send(new PostMail($post));
+
+//        $PostMail = new PostMail($post);
+//        $PostMail->from("kts@mms-student.online","စမ်းပို့ကြည့်တာပါ")
+//            ->subject("Hello Everyone!");
+//        Mail::to('kyaingthinswe1528@gmail.com')->send($PostMail);
+
+//        $userMails = ['kyaingthinswe1528@gmail.com','ktstu97@gmail.com'];
+//        foreach ($userMails as $u){
+////            Mail::to($u)->send(new PostMail($post));
+//            Mail::to($u)->later(now()->addSecond(10),new PostMail($post));
+//        }
+
+        /**
+         * Version ခွဲပြီး သိမ်းကြည့်
+         * App/Jobs/CreateFile.php
+        **/
+
+//        CreateFile::dispatch($newName)->delay(now()->addSecond(5));
+//        CreateFile::dispatch(FileControl::FileSave('cover','cover'))->delay(now()->addSecond(5));
 
         return redirect()->route('index');
     }
@@ -116,11 +153,12 @@ class PostController extends Controller
 
             Storage::delete('public/cover/'.$post->cover);
 
-            $dir = "public/cover/";
-            $newName = "cover_".uniqid()."_".$request->file('cover')->extension();
-            $request->file('cover')->storeAs($dir,$newName);
+//            $dir = "public/cover/";
+//            $newName = "cover_".uniqid()."_".$request->file('cover')->extension();
+//            $request->file('cover')->storeAs($dir,$newName);
 
-            $post->cover = $newName;
+//            $post->cover = $newName;
+            $post->cover = FileControl::FileSave('cover');
 
         }
         $post->update();
@@ -139,7 +177,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         Gate::authorize('delete',$post);
-        Storage::delete('public/cover/'.$post->cover);
+//        Storage::delete('public/cover/'.$post->cover);
         $post->delete();
         return redirect()->route('index');
     }

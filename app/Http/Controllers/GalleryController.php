@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Gallery;
 use App\Http\Requests\StoreGalleryRequest;
 use App\Http\Requests\UpdateGalleryRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 class GalleryController extends Controller
 {
@@ -36,7 +39,18 @@ class GalleryController extends Controller
      */
     public function store(StoreGalleryRequest $request)
     {
-        //
+        foreach ($request->file("galleries") as $file){
+            $dir = 'public/gallery/';
+            $newName = "gallery_".uniqid().".".$file->extension();
+            $file->storeAs($dir,$newName);
+
+            $gallery = new Gallery();
+            $gallery->photo = $newName;
+            $gallery->post_id = $request->post_id;
+            $gallery->user_id = Auth::id();
+            $gallery->save();
+        }
+        return redirect()->to(url()->previous()."#gallery");
     }
 
     /**
@@ -81,6 +95,10 @@ class GalleryController extends Controller
      */
     public function destroy(Gallery $gallery)
     {
-        //
+        Gate::authorize('delete',$gallery);
+        Storage::delete('public/gallery/'.$gallery->photo);
+        $gallery->delete();
+        return redirect()->to(url()->previous()."#gallery");
+
     }
 }
